@@ -56,43 +56,44 @@
         id="v-topbar-template"
     >
         <div class="flex w-full items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16 py-3">
-            {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.currency_switcher.before') !!}
+            @if (boolval(+core()->getConfigData('custom_settings.special.general.display_prices')))
+                {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.currency_switcher.before') !!}
 
-            <!-- Currency Switcher -->
-            <x-shop::dropdown>
-                <!-- Dropdown Toggler -->
-                <x-slot:toggle>
-                    <div
-                        class="flex cursor-pointer gap-2.5"
-                        role="button"
-                        tabindex="0"
-                        @click="currencyToggler = ! currencyToggler"
-                    >
-                        <span>
-                            {{ core()->getCurrentCurrency()->symbol . ' ' . core()->getCurrentCurrencyCode() }}
-                        </span>
+                <!-- Currency Switcher -->
+                <x-shop::dropdown>
+                    <!-- Dropdown Toggler -->
+                    <x-slot:toggle>
+                        <div
+                            class="flex items-center cursor-pointer gap-2 text-sm"
+                            role="button"
+                            tabindex="0"
+                            @click="currencyToggler = ! currencyToggler"
+                        >
+                            <span>
+                                {{ core()->getCurrentCurrency()->symbol . ' ' . core()->getCurrentCurrencyCode() }}
+                            </span>
 
-                        <span
-                            class="text-2xl"
-                            :class="{'icon-arrow-up': currencyToggler, 'icon-arrow-down': ! currencyToggler}"
-                            role="presentation"
-                        ></span>
-                    </div>
-                </x-slot>
+                            <span
+                                class="text-sm"
+                                :class="{'icon-arrow-up': currencyToggler, 'icon-arrow-down': ! currencyToggler}"
+                                role="presentation"
+                            ></span>
+                        </div>
+                    </x-slot>
 
-                <!-- Dropdown Content -->
-                <x-slot:content class="!p-0">
-                    <v-currency-switcher></v-currency-switcher>
-                </x-slot>
-            </x-shop::dropdown>
+                    <!-- Dropdown Content -->
+                    <x-slot:content class="!p-0">
+                        <v-currency-switcher></v-currency-switcher>
+                    </x-slot>
+                </x-shop::dropdown>
 
-            {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.currency_switcher.after') !!}
-
+                {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.currency_switcher.after') !!}
+            @endif
             <p class="text-xs font-medium">
                 {{ core()->getConfigData('general.content.header_offer.title') }}
-                
-                <a 
-                    href="{{ core()->getConfigData('general.content.header_offer.redirection_link') }}" 
+
+                <a
+                    href="{{ core()->getConfigData('general.content.header_offer.redirection_link') }}"
                     class="underline"
                     role="button"
                 >
@@ -107,7 +108,7 @@
                 <x-slot:toggle>
                     <!-- Dropdown Toggler -->
                     <div
-                        class="flex cursor-pointer items-center gap-2.5"
+                        class="flex cursor-pointer items-center gap-2 text-sm"
                         role="button"
                         tabindex="0"
                         @click="localeToggler = ! localeToggler"
@@ -119,22 +120,22 @@
                                 }}"
                             class="h-full"
                             alt="@lang('shop::app.components.layouts.header.desktop.top.default-locale')"
-                            width="24"
+                            width="16"
                             height="16"
                         />
-                        
+
                         <span>
                             {{ core()->getCurrentChannel()->locales()->orderBy('name')->where('code', app()->getLocale())->value('name') }}
                         </span>
 
                         <span
-                            class="text-2xl"
+                            class="text-sm"
                             :class="{'icon-arrow-up': localeToggler, 'icon-arrow-down': ! localeToggler}"
                             role="presentation"
                         ></span>
                     </div>
                 </x-slot>
-            
+
                 <!-- Dropdown Content -->
                 <x-slot:content class="!p-0">
                     <v-locale-switcher></v-locale-switcher>
@@ -149,9 +150,9 @@
         type="text/x-template"
         id="v-currency-switcher-template"
     >
-        <div class="my-2.5 grid gap-1 max-md:my-0">
+        <div class="my-2 grid gap-1 max-md:my-0">
             <span
-                class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
+                class="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100"
                 v-for="currency in currencies"
                 :class="{'bg-gray-100': currency.code == '{{ core()->getCurrentCurrencyCode() }}'}"
                 @click="change(currency)"
@@ -165,16 +166,16 @@
         type="text/x-template"
         id="v-locale-switcher-template"
     >
-        <div class="my-2.5 grid gap-1 max-md:my-0">
+        <div class="my-2 grid gap-1 max-md:my-0">
             <span
-                class="flex cursor-pointer items-center gap-2.5 px-5 py-2 text-base hover:bg-gray-100"
+                class="flex cursor-pointer items-center gap-2 px-4 py-2 hover:bg-gray-100 text-sm"
                 :class="{'bg-gray-100': locale.code == '{{ app()->getLocale() }}'}"
                 v-for="locale in locales"
-                @click="change(locale)"                  
+                @click="change(locale)"
             >
                 <img
                     :src="locale.logo_url || '{{ bagisto_asset('images/default-language.svg') }}'"
-                    width="24"
+                    width="16"
                     height="16"
                 />
 

@@ -17,22 +17,22 @@
                 {!! view_render_event('bagisto.shop.categories.toolbar.filter.before') !!}
 
                 <!-- Product Sorting Filters -->
-                <x-shop::dropdown 
-                    class="z-[1]" 
+                <x-shop::dropdown
+                    class="z-[1]"
                     position="bottom-left"
                 >
                     <x-slot:toggle>
                         <!-- Dropdown Toggler -->
-                        <button class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-3.5 text-base transition-all hover:border-gray-400 focus:border-gray-400 max-md:w-[110px] max-md:border-0 max-md:pl-2.5 max-md:pr-2.5">
+                        <button class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-2.5 text-sm transition-all hover:border-gray-400 focus:border-gray-400 max-md:w-[110px] max-md:border-0 max-md:pl-2.5 max-md:pr-2.5">
                             @{{ sortLabel ?? "@lang('shop::app.products.sort-by.title')" }}
 
                             <span
-                                class="icon-arrow-down text-2xl"
+                                class="icon-arrow-down text-md"
                                 role="presentation"
                             ></span>
                         </button>
                     </x-slot>
-                
+
                     <!-- Dropdown Content -->
                     <x-slot:menu>
                         <x-shop::dropdown.menu.item
@@ -55,16 +55,16 @@
                     <x-shop::dropdown position="bottom-right">
                         <x-slot:toggle>
                             <!-- Dropdown Toggler -->
-                            <button class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-3.5 text-base transition-all hover:border-gray-400 focus:border-gray-400 max-md:w-[110px] max-md:border-0 max-md:pl-2.5 max-md:pr-2.5">
+                            <button class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-2.5 text-sm transition-all hover:border-gray-400 focus:border-gray-400 max-md:w-[110px] max-md:border-0 max-md:pl-2.5 max-md:pr-2.5">
                                 @{{ filters.applied.limit ?? "@lang('shop::app.categories.toolbar.show')" }}
 
                                 <span
-                                    class="icon-arrow-down text-2xl"
+                                    class="icon-arrow-down text-md"
                                     role="presentation"
                                 ></span>
                             </button>
                         </x-slot>
-                    
+
                         <!-- Dropdown Content -->
                         <x-slot:menu>
                             <x-shop::dropdown.menu.item
@@ -80,7 +80,7 @@
                     <!-- Listing Mode Switcher -->
                     <div class="flex items-center gap-5">
                         <span
-                            class="cursor-pointer text-2xl"
+                            class="cursor-pointer text-xl"
                             role="button"
                             aria-label="@lang('shop::app.categories.toolbar.list')"
                             tabindex="0"
@@ -90,7 +90,7 @@
                         </span>
 
                         <span
-                            class="cursor-pointer text-2xl"
+                            class="cursor-pointer text-xl"
                             role="button"
                             aria-label="@lang('shop::app.categories.toolbar.grid')"
                             tabindex="0"

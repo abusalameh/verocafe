@@ -25,22 +25,22 @@
         @endif
 
         <div class="mt-8 flex items-center justify-between max-md:mt-5">
-            <h1 
-                class="text-2xl font-medium max-sm:text-base" 
+            <h1
+                class="text-2xl font-medium max-sm:text-base"
                 v-text="'{{ $title }}'"
-            >    
+            >
             </h1>
         </div>
     </div>
-        
+
     <!-- Product Listing -->
     <v-search>
         <x-shop::shimmer.categories.view />
     </v-search>
 
     @pushOnce('scripts')
-        <script 
-            type="text/x-template" 
+        <script
+            type="text/x-template"
             id="v-search-template"
         >
             <div class="container px-[60px] max-lg:px-8 max-sm:px-4">
@@ -82,7 +82,7 @@
                                             src="{{ bagisto_asset('images/thank-you.png') }}"
                                             alt="Empty result"
                                         />
-                                  
+
                                         <p
                                             class="text-xl max-sm:text-sm"
                                             role="heading"
@@ -106,7 +106,7 @@
                             <!-- Product Card Listing -->
                             <template v-else>
                                 <template v-if="products.length">
-                                    <div class="mt-8 grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-md:mt-5 max-md:justify-items-center max-md:gap-x-4 max-md:gap-y-5">
+                                    <div class="mt-8 grid grid-cols-4 gap-8 max-1060:grid-cols-2 max-md:mt-5 max-md:justify-items-center max-md:gap-x-4 max-md:gap-y-5">
                                         <x-shop::products.card
                                             ::mode="'grid'"
                                             v-for="product in products"
@@ -160,13 +160,13 @@
 
                         isDrawerActive: {
                             toolbar: false,
-                            
+
                             filter: false,
                         },
 
                         filters: {
                             toolbar: {},
-                            
+
                             filter: {},
                         },
 
@@ -210,12 +210,12 @@
                     getProducts() {
                         this.isDrawerActive = {
                             toolbar: false,
-                            
+
                             filter: false,
                         };
 
-                        this.$axios.get(("{{ route('shop.api.products.index') }}"), { 
-                            params: this.queryParams 
+                        this.$axios.get(("{{ route('shop.api.products.index') }}"), {
+                            params: this.queryParams
                         })
                             .then(response => {
                                 this.isLoading = false;

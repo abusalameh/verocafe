@@ -441,6 +441,7 @@ return [
                 'subscribe-newsletter'   => 'הרשמו לרשימת התפוצה',
                 'subscribe-stay-touch'   => 'הירשמו לעדכונים ונשארו מעודכנים.',
                 'whats-new'              => 'מה חדש',
+                'footer-vero-text' => '© כל הזכויות שמורות :current_year'
             ],
         ],
 

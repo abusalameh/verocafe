@@ -119,8 +119,8 @@
             <div class="panel-side journal-scroll grid max-h-[1320px] min-w-[342px] grid-cols-[1fr] overflow-y-auto overflow-x-hidden max-xl:min-w-[270px] md:max-w-[400px] md:pr-7">
                 <!-- Filters Header Container -->
                 <div class="flex h-[50px] items-center justify-between border-b border-zinc-200 pb-2.5 max-md:hidden">
-                    <p class="text-lg font-semibold max-sm:font-medium">
-                        @lang('shop::app.categories.filters.filters')
+                    <p class="text-sm font-semibold max-sm:font-medium">
+                       @lang('shop::app.categories.filters.filters')
                     </p>
 
                     <p
@@ -155,7 +155,7 @@
                 <!-- Filter Item Header -->
                 <x-slot:header class="px-0 py-2.5 max-sm:!pb-1.5">
                     <div class="flex items-center justify-between">
-                        <p class="text-lg font-semibold max-sm:text-base max-sm:font-medium">
+                        <p class="text-sm font-semibold max-sm:font-medium">
                             @{{ filter.name }}
                         </p>
                     </div>
@@ -176,7 +176,7 @@
                     </ul>
 
                     <!-- Checkbox Filter Options -->
-                    <ul class="pb-3 text-base text-gray-700" v-else>
+                    <ul class="pb-3 text-sm text-gray-700" v-else>
                         <li
                             :key="option.id"
                             v-for="(option, optionIndex) in filter.options"
@@ -267,7 +267,7 @@
             methods: {
                 getFilters() {
                     this.$axios.get('{{ route("shop.api.categories.attributes") }}', {
-                            params: { 
+                            params: {
                                 category_id: "{{ isset($category) ? $category->id : ''  }}",
                             }
                         })

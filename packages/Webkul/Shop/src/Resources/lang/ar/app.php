@@ -441,6 +441,7 @@ return [
                 'subscribe-newsletter'   => 'اشترك في النشرة الإخبارية',
                 'subscribe-stay-touch'   => 'اشترك للبقاء على اتصال.',
                 'whats-new'              => 'ما الجديد',
+                'footer-vero-text' => '© جميع الحقوق محفوظة :current_year'
             ],
         ],
 

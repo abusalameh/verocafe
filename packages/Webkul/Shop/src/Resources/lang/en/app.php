@@ -441,6 +441,7 @@ return [
                 'subscribe-newsletter'   => 'Subscribe Newsletter',
                 'subscribe-stay-touch'   => 'Subscribe to stay in touch.',
                 'whats-new'              => 'What’s New',
+                'footer-vero-text' => '© All rights reserved :current_year.'
             ],
         ],
 

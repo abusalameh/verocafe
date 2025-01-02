@@ -11,7 +11,7 @@ class Toolbar
      */
     public function getAvailableOrders(): Collection
     {
-        return collect([
+        $list = collect([
             [
                 'title'    => trans('product::app.sort-by.options.from-a-z'),
                 'value'    => 'name-asc',
@@ -55,6 +55,13 @@ class Toolbar
                 'position' => 6,
             ],
         ]);
+
+        $display_prices = boolval(+core()->getConfigData('custom_settings.special.general.display_prices'));
+
+        return ! $display_prices ? $list->filter(function ($item) {
+            return $item['sort'] !== 'price';
+        }) : $list;
+
     }
 
     /**
@@ -64,7 +71,7 @@ class Toolbar
     public function getDefaultOrder(): array
     {
         return $this->getAvailableOrders()
-            ->where('value', core()->getConfigData('catalog.products.storefront.sort_by') ?? 'price-desc')
+            ->where('value', core()->getConfigData('catalog.products.storefront.sort_by') ?? 'created_at-desc')
             ->firstOrFail();
     }
 

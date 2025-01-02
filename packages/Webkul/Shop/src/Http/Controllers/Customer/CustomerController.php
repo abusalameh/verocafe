@@ -23,7 +23,11 @@ class CustomerController extends Controller
         protected CustomerRepository $customerRepository,
         protected ProductReviewRepository $productReviewRepository,
         protected SubscribersListRepository $subscriptionRepository
-    ) {}
+    ) {
+        if (! boolval(+core()->getConfigData('custom_settings.special.general.allow_user_authentication'))) {
+            redirect('/', 301);
+        }
+    }
 
     /**
      * Taking the customer to profile details page.

@@ -16,6 +16,9 @@ class SessionController extends Controller
      */
     public function index()
     {
+        if (! boolval(+core()->getConfigData('custom_settings.special.general.allow_user_authentication'))) {
+            return redirect()->route('shop.home.index');
+        }
         if (auth()->guard('customer')->check()) {
             return redirect()->route('shop.home.index');
         }

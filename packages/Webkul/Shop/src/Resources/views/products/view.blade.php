@@ -114,20 +114,20 @@
                                         </div>
 
                                         @if ($customAttributeValue['type'] == 'file')
-                                            <a 
-                                                href="{{ Storage::url($product[$customAttributeValue['code']]) }}" 
+                                            <a
+                                                href="{{ Storage::url($product[$customAttributeValue['code']]) }}"
                                                 download="{{ $customAttributeValue['label'] }}"
                                             >
                                                 <span class="icon-download text-2xl"></span>
                                             </a>
                                         @elseif ($customAttributeValue['type'] == 'image')
-                                            <a 
-                                                href="{{ Storage::url($product[$customAttributeValue['code']]) }}" 
+                                            <a
+                                                href="{{ Storage::url($product[$customAttributeValue['code']]) }}"
                                                 download="{{ $customAttributeValue['label'] }}"
                                             >
-                                                <img 
-                                                    class="h-5 min-h-5 w-5 min-w-5" 
-                                                    src="{{ Storage::url($customAttributeValue['value']) }}" 
+                                                <img
+                                                    class="h-5 min-h-5 w-5 min-w-5"
+                                                    src="{{ Storage::url($customAttributeValue['value']) }}"
                                                 />
                                             </a>
                                         @else
@@ -143,16 +143,17 @@
                         </div>
                     </x-shop::tabs.item>
                 @endif
-
-                <!-- Reviews Tab -->
-                <x-shop::tabs.item
-                    id="review-tab"
-                    class="container mt-[60px] !p-0"
-                    :title="trans('shop::app.products.view.review')"
-                    :is-selected="false"
-                >
-                    @include('shop::products.view.reviews')
-                </x-shop::tabs.item>
+                @if (boolval(+core()->getConfigData('custom_settings.special.general.allow_user_authentication')))
+                    <!-- Reviews Tab -->
+                    <x-shop::tabs.item
+                        id="review-tab"
+                        class="container mt-[60px] !p-0"
+                        :title="trans('shop::app.products.view.review')"
+                        :is-selected="false"
+                    >
+                        @include('shop::products.view.reviews')
+                    </x-shop::tabs.item>
+                @endif
             </x-shop::tabs>
         </div>
     </div>
@@ -212,8 +213,8 @@
                                             href="{{ Storage::url($product[$customAttributeValue['code']]) }}"
                                             download="{{ $customAttributeValue['label'] }}"
                                         >
-                                            <img 
-                                                class="h-5 min-h-5 w-5 min-w-5" 
+                                            <img
+                                                class="h-5 min-h-5 w-5 min-w-5"
                                                 src="{{ Storage::url($customAttributeValue['value']) }}"
                                                 alt="Product Image"
                                             />
@@ -305,69 +306,71 @@
                                     <h1 class="text-3xl font-medium max-sm:text-xl">
                                         {{ $product->name }}
                                     </h1>
-
-                                    @if (core()->getConfigData('customer.settings.wishlist.wishlist_option'))
-                                        <div
-                                            class="flex max-h-[46px] min-h-[46px] min-w-[46px] cursor-pointer items-center justify-center rounded-full border bg-white text-2xl transition-all hover:opacity-[0.8] max-sm:max-h-7 max-sm:min-h-7 max-sm:min-w-7 max-sm:text-base"
-                                            role="button"
-                                            aria-label="@lang('shop::app.products.view.add-to-wishlist')"
-                                            tabindex="0"
-                                            :class="isWishlist ? 'icon-heart-fill text-red-600' : 'icon-heart'"
-                                            @click="addToWishlist"
-                                        >
-                                        </div>
+                                    @if (boolval(+core()->getConfigData('custom_settings.special.general.allow_user_authentication')))
+                                        @if (core()->getConfigData('customer.settings.wishlist.wishlist_option'))
+                                            <div
+                                                class="flex max-h-[46px] min-h-[46px] min-w-[46px] cursor-pointer items-center justify-center rounded-full border bg-white text-2xl transition-all hover:opacity-[0.8] max-sm:max-h-7 max-sm:min-h-7 max-sm:min-w-7 max-sm:text-base"
+                                                role="button"
+                                                aria-label="@lang('shop::app.products.view.add-to-wishlist')"
+                                                tabindex="0"
+                                                :class="isWishlist ? 'icon-heart-fill text-red-600' : 'icon-heart'"
+                                                @click="addToWishlist"
+                                            >
+                                            </div>
+                                        @endif
                                     @endif
                                 </div>
 
                                 {!! view_render_event('bagisto.shop.products.name.after', ['product' => $product]) !!}
+                                @if (boolval(+core()->getConfigData('custom_settings.special.general.allow_user_authentication')))
+                                    <!-- Rating -->
+                                    {!! view_render_event('bagisto.shop.products.rating.before', ['product' => $product]) !!}
 
-                                <!-- Rating -->
-                                {!! view_render_event('bagisto.shop.products.rating.before', ['product' => $product]) !!}
+                                    @if ($totalRatings = $reviewHelper->getTotalFeedback($product))
+                                        <!-- Scroll To Reviews Section and Activate Reviews Tab -->
+                                        <div
+                                            class="mt-1 w-max cursor-pointer max-sm:mt-1.5"
+                                            role="button"
+                                            tabindex="0"
+                                            @click="scrollToReview"
+                                        >
+                                            <x-shop::products.ratings
+                                                class="transition-all hover:border-gray-400 max-sm:px-3 max-sm:py-1"
+                                                :average="$avgRatings"
+                                                :total="$totalRatings"
+                                                ::rating="true"
+                                            />
+                                        </div>
+                                    @endif
 
-                                @if ($totalRatings = $reviewHelper->getTotalFeedback($product))
-                                    <!-- Scroll To Reviews Section and Activate Reviews Tab -->
-                                    <div
-                                        class="mt-1 w-max cursor-pointer max-sm:mt-1.5"
-                                        role="button"
-                                        tabindex="0"
-                                        @click="scrollToReview"
-                                    >
-                                        <x-shop::products.ratings
-                                            class="transition-all hover:border-gray-400 max-sm:px-3 max-sm:py-1"
-                                            :average="$avgRatings"
-                                            :total="$totalRatings"
-                                            ::rating="true"
-                                        />
-                                    </div>
+                                    {!! view_render_event('bagisto.shop.products.rating.after', ['product' => $product]) !!}
                                 @endif
-
-                                {!! view_render_event('bagisto.shop.products.rating.after', ['product' => $product]) !!}
-
+                                @if (boolval(+core()->getConfigData('custom_settings.special.general.display_prices')))
                                 <!-- Pricing -->
-                                {!! view_render_event('bagisto.shop.products.price.before', ['product' => $product]) !!}
+                                    {!! view_render_event('bagisto.shop.products.price.before', ['product' => $product]) !!}
 
-                                <p class="mt-[22px] flex items-center gap-2.5 text-2xl !font-medium max-sm:mt-2 max-sm:gap-x-2.5 max-sm:gap-y-0 max-sm:text-lg">
-                                    {!! $product->getTypeInstance()->getPriceHtml() !!}
-                                </p>
+                                    <p class="mt-[22px] flex items-center gap-2.5 text-2xl !font-medium max-sm:mt-2 max-sm:gap-x-2.5 max-sm:gap-y-0 max-sm:text-lg">
+                                        {!! $product->getTypeInstance()->getPriceHtml() !!}
+                                    </p>
 
-                                @if (\Webkul\Tax\Facades\Tax::isInclusiveTaxProductPrices())
-                                    <span class="text-sm font-normal text-zinc-500 max-sm:text-xs">
-                                        (@lang('shop::app.products.view.tax-inclusive'))
-                                    </span>
+                                    @if (\Webkul\Tax\Facades\Tax::isInclusiveTaxProductPrices())
+                                        <span class="text-sm font-normal text-zinc-500 max-sm:text-xs">
+                                            (@lang('shop::app.products.view.tax-inclusive'))
+                                        </span>
+                                    @endif
+
+                                    @if (count($product->getTypeInstance()->getCustomerGroupPricingOffers()))
+                                        <div class="mt-2.5 grid gap-1.5">
+                                            @foreach ($product->getTypeInstance()->getCustomerGroupPricingOffers() as $offer)
+                                                <p class="text-zinc-500 [&>*]:text-black">
+                                                    {!! $offer !!}
+                                                </p>
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+                                    {!! view_render_event('bagisto.shop.products.price.after', ['product' => $product]) !!}
                                 @endif
-
-                                @if (count($product->getTypeInstance()->getCustomerGroupPricingOffers()))
-                                    <div class="mt-2.5 grid gap-1.5">
-                                        @foreach ($product->getTypeInstance()->getCustomerGroupPricingOffers() as $offer)
-                                            <p class="text-zinc-500 [&>*]:text-black">
-                                                {!! $offer !!}
-                                            </p>
-                                        @endforeach
-                                    </div>
-                                @endif
-
-                                {!! view_render_event('bagisto.shop.products.price.after', ['product' => $product]) !!}
-
                                 {!! view_render_event('bagisto.shop.products.short_description.before', ['product' => $product]) !!}
 
                                 <p class="mt-6 text-lg text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
@@ -387,19 +390,19 @@
 
                                 <!-- Product Actions and Qunatity Box -->
                                 <div class="mt-8 flex max-w-[470px] gap-4 max-sm:mt-4">
+                                    @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
+                                        {!! view_render_event('bagisto.shop.products.view.quantity.before', ['product' => $product]) !!}
 
-                                    {!! view_render_event('bagisto.shop.products.view.quantity.before', ['product' => $product]) !!}
+                                        @if ($product->getTypeInstance()->showQuantityBox())
+                                            <x-shop::quantity-changer
+                                                name="quantity"
+                                                value="1"
+                                                class="gap-x-4 rounded-xl px-7 py-4 max-md:py-3 max-sm:gap-x-5 max-sm:rounded-lg max-sm:px-4 max-sm:py-1.5"
+                                            />
+                                        @endif
 
-                                    @if ($product->getTypeInstance()->showQuantityBox())
-                                        <x-shop::quantity-changer
-                                            name="quantity"
-                                            value="1"
-                                            class="gap-x-4 rounded-xl px-7 py-4 max-md:py-3 max-sm:gap-x-5 max-sm:rounded-lg max-sm:px-4 max-sm:py-1.5"
-                                        />
+                                        {!! view_render_event('bagisto.shop.products.view.quantity.after', ['product' => $product]) !!}
                                     @endif
-
-                                    {!! view_render_event('bagisto.shop.products.view.quantity.after', ['product' => $product]) !!}
-
                                     @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
                                         <!-- Add To Cart Button -->
                                         {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
@@ -617,7 +620,7 @@
                                 behavior: 'smooth'
                             });
                         }
-                        
+
                         let tabElement = document.querySelector('#review-tab-button');
 
                         if (tabElement) {

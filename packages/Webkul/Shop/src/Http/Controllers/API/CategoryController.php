@@ -57,8 +57,16 @@ class CategoryController extends APIController
      */
     public function getAttributes(): JsonResource
     {
+        $displayPrices = boolval(+core()->getConfigData('custom_settings.special.general.display_prices'));
+
         if (! request('category_id')) {
             $filterableAttributes = $this->attributeRepository->getFilterableAttributes();
+
+            if (! $displayPrices) {
+                $filterableAttributes = $filterableAttributes->filter(function ($value, $key) {
+                    return $value->code !== 'price';
+                });
+            }
 
             return AttributeResource::collection($filterableAttributes);
         }
@@ -67,6 +75,12 @@ class CategoryController extends APIController
 
         if (empty($filterableAttributes = $category->filterableAttributes)) {
             $filterableAttributes = $this->attributeRepository->getFilterableAttributes();
+        }
+
+        if (! $displayPrices) {
+            $filterableAttributes = $filterableAttributes->filter(function ($value, $key) {
+                return $value->code !== 'price';
+            });
         }
 
         return AttributeResource::collection($filterableAttributes);

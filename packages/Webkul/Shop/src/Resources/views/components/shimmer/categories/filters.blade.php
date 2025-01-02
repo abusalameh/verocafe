@@ -3,18 +3,19 @@
         <p class="shimmer h-6 w-[30%]"></p>
         <p class="shimmer h-5 w-1/5"></p>
     </div>
+    @if (boolval(+core()->getConfigData('custom_settings.special.general.display_prices')))
+        <!-- Price Range Filter Shimmer -->
+        <div class="border-b border-zinc-200">
+            <div class="flex items-center justify-between py-2.5">
+                <p class="shimmer h-7 w-2/5"></p>
+                <span class="shimmer h-6 w-6"></span>
+            </div>
 
-    <!-- Price Range Filter Shimmer -->
-    <div class="border-b border-zinc-200">
-        <div class="flex items-center justify-between py-2.5">
-            <p class="shimmer h-7 w-2/5"></p>
-            <span class="shimmer h-6 w-6"></span>
+            <div class="z-10 rounded-lg bg-white">
+                <x-shop::shimmer.range-slider />
+            </div>
         </div>
-
-        <div class="z-10 rounded-lg bg-white">
-            <x-shop::shimmer.range-slider />
-        </div>
-    </div>
+    @endif
 
     <!-- Checkbox Filter Shimmer -->
     <div class="border-b border-zinc-200">
@@ -26,7 +27,7 @@
         <div class="z-10 grid rounded-lg bg-white pb-3">
             <div class="flex items-center gap-x-4 ltr:pl-2 rtl:pr-2">
                 <div class="shimmer h-5 w-5 rounded"></div>
-                
+
                 <div class="p-2 ltr:pl-0 rtl:pr-0">
                     <div class="shimmer h-5 w-[100px]"></div>
                 </div>
@@ -76,7 +77,7 @@
         <div class="z-10 grid rounded-lg bg-white pb-3">
             <div class="flex items-center gap-x-4 ltr:pl-2 rtl:pr-2">
                 <div class="shimmer h-5 w-5 rounded"></div>
-                
+
                 <div class="p-2 ltr:pl-0 rtl:pr-0">
                     <div class="shimmer h-5 w-[100px]"></div>
                 </div>

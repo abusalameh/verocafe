@@ -4484,4 +4484,25 @@ return [
             'tracking-number'            => 'Tracking Number : :tracking_number',
         ],
     ],
+
+    'custom_settings' => [
+        'index' => [
+            'custom_settings' => [
+                'title' => 'Vero Cafe Custom Settings',
+                'info' => 'All custom settings for Vero Cafe',
+                'special' => [
+                    'info' => 'Custom Settings',
+                    'title' => 'Custom Settings',
+                    'prices' => [
+                        'title' => 'Display Product Prices',
+                        'info' => 'Allow website vistors to view prices'
+                    ],
+                    'users' => [
+                        'title' => 'Activate User Authentication',
+                        'info' => 'Allow website vistors to use user authentication (Registeration & Login )'
+                    ]
+                ]
+            ],
+        ]
+    ]
 ];

@@ -37,6 +37,7 @@ module.exports = {
             },
 
             fontFamily: {
+                sans: ['Noto Kufi Arabic', 'sans-serif'],
                 poppins: ["Poppins"],
                 dmserif: ["DM Serif Display"],
             },

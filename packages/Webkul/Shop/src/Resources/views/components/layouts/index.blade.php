@@ -70,6 +70,10 @@
             href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
         >
 
+        <link rel="preload" href="https://fonts.gstatic.com/s/notokufiarabic/v14/EJRSQgs1XtIEsnMHcH4Q3hv0b2V9p1w.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;700&display=swap" rel="stylesheet">
+
+
         @stack('styles')
 
         <style>
@@ -80,7 +84,7 @@
 
     </head>
 
-    <body>
+    <body class="font-sans">
         {!! view_render_event('bagisto.shop.layout.body.before') !!}
 
         <a

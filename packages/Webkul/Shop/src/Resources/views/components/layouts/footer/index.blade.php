@@ -18,7 +18,7 @@
     ]);
 @endphp
 
-<footer class="mt-9 bg-lightOrange max-sm:mt-10">
+<footer class="mt-9 bg-[#ebebeb] max-sm:mt-10">
     <div class="flex justify-between gap-x-6 gap-y-8 p-[60px] max-1060:flex-col-reverse max-md:gap-5 max-md:p-8 max-sm:px-4 max-sm:py-5">
         <!-- For Desktop View -->
         <div class="flex flex-wrap items-start gap-24 max-1180:gap-6 max-1060:hidden">
@@ -44,15 +44,8 @@
         </div>
 
         <!-- For Mobile view -->
-        <x-shop::accordion
-            :is-active="false"
-            class="hidden !w-full rounded-xl !border-2 !border-[#e9decc] max-1060:block max-sm:rounded-lg"
-        >
-            <x-slot:header class="rounded-t-lg bg-[#F1EADF] font-medium max-md:p-2.5 max-sm:px-3 max-sm:py-2 max-sm:text-sm">
-                @lang('shop::app.components.layouts.footer.footer-content')
-            </x-slot>
-
-            <x-slot:content class="flex justify-between !bg-transparent !p-4">
+        <div class="hidden !w-full rounded-xl !border-2 !border-[#e9decc] max-1060:block max-sm:rounded-lg">
+            <div class="flex justify-between !bg-transparent !p-4">
                 @if ($customization?->options)
                     @foreach ($customization->options as $footerLinkSection)
                         <ul class="grid gap-5 text-sm">
@@ -74,8 +67,8 @@
                         </ul>
                     @endforeach
                 @endif
-            </x-slot>
-        </x-shop::accordion>
+            </div>
+        </div>
 
         {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.before') !!}
 
@@ -109,9 +102,9 @@
                                 :aria-label="trans('shop::app.components.layouts.footer.email')"
                                 placeholder="email@example.com"
                             />
-    
+
                             <x-shop::form.control-group.error control-name="email" />
-    
+
                             <button
                                 type="submit"
                                 class="absolute top-1.5 flex w-max items-center rounded-xl bg-white px-7 py-2.5 font-medium hover:bg-zinc-100 max-md:top-1 max-md:px-5 max-md:text-xs max-sm:mt-0 max-sm:rounded-lg max-sm:px-4 max-sm:py-2 ltr:right-2 rtl:left-2"
@@ -127,11 +120,11 @@
         {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.after') !!}
     </div>
 
-    <div class="flex justify-between bg-[#F1EADF] px-[60px] py-3.5 max-md:justify-center max-sm:px-5">
+    <div class="flex justify-between bg-[#d5d5d5] px-[60px] py-3.5 max-md:justify-center max-sm:px-5">
         {!! view_render_event('bagisto.shop.layout.footer.footer_text.before') !!}
 
         <p class="text-sm text-zinc-600 max-md:text-center">
-            @lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])
+            @lang('shop::app.components.layouts.footer.footer-vero-text', ['current_year'=> date('Y') ])
         </p>
 
         {!! view_render_event('bagisto.shop.layout.footer.footer_text.after') !!}
